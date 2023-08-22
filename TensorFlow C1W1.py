@@ -2,7 +2,7 @@
 
 My project on DeepLearning.AI TensorFlow Developer Professional Certificate.
 
-Main project file.
+Course 1., week 1.
 
 """
 
