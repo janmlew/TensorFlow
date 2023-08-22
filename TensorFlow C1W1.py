@@ -5,9 +5,10 @@ My project on DeepLearning.AI TensorFlow Developer Professional Certificate.
 Main project file.
 
 """
-import keras
+
 # Imports:
 import numpy as np
+import keras
 import tensorflow as tf
 
 # Data loads:
