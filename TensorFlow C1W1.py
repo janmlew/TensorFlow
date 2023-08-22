@@ -8,12 +8,24 @@ Main project file.
 
 # Imports:
 import numpy as np
-import keras
 import tensorflow as tf
+from tensorflow import keras
+
+print(tf.__version__)
+
 
 # Data loads:
 
+
 # Main code:
+
+
+# Non-neural equivalent of the 'hello world' model:
+
+def hw_function(x):
+    y = (x * 2) - 1
+    return y
+
 
 # The 'hello world!' example ;)
 
