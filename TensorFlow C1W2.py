@@ -78,3 +78,6 @@ model.compile(optimizer=tf.optimizers.Adam(),
               metrics=['accuracy'])
 
 model.fit(training_images, training_labels, epochs=5)
+
+# Evaluate the model on unseen data
+print(model.evaluate(test_images, test_labels))
