@@ -69,7 +69,7 @@ print(f'class with highest probability: {prediction}')
 
 """
 
-That's the example. Now let's get back to the actual model generation)
+That's the example. Now let's get back to the actual model generation.
 
 """
 
