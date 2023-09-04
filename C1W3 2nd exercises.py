@@ -7,7 +7,6 @@ Course 1., week 3. further exercises.
 """
 
 # Imports:
-import tensorflow as tf
 from scipy.datasets import ascent
 import matplotlib.pyplot as plt
 import numpy as np
@@ -30,7 +29,7 @@ size_x = image_transformed.shape[0]
 size_y = image_transformed.shape[1]
 
 # Experiment with different values and see the effect
-filter = [ [0, 1, 0], [1, -4, 1], [0, 1, 0]]
+filter = [[0, 1, 0], [1, -4, 1], [0, 1, 0]]
 
 # A couple more filters to try for fun!
 # filter = [ [-1, -2, -1], [0, 0, 0], [1, 2, 1]]
@@ -40,7 +39,7 @@ filter = [ [0, 1, 0], [1, -4, 1], [0, 1, 0]]
 # should probably do a weight to get it to do so
 # so, for example, if your weights are 1,1,1 1,2,1 1,1,1
 # They add up to 10, so you would set a weight of .1 if you want to normalize them
-weight  = 1
+weight = 1
 
 # Iterate over the image
 for x in range(1, size_x - 1):
