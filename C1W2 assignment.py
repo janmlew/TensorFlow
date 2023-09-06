@@ -44,7 +44,7 @@ this exercise you will be needing only the train set so you can ignore the secon
 current_dir = os.getcwd()
 
 # Append data/mnist.npz to the previous path to get the full path
-data_path = os.path.join(current_dir, "data/mnist.npz")
+data_path = os.path.join(current_dir, "mnist.npz")  # Updated file path.
 
 # Discard test set
 (x_train, y_train), _ = tf.keras.datasets.mnist.load_data(path=data_path)
@@ -58,6 +58,7 @@ data_shape = x_train.shape
 
 print(f"There are {data_shape[0]} examples with shape ({data_shape[1]}, {data_shape[2]})")
 
+
 # # Defining your callback
 # Now it is time to create your own custom callback. For this complete the myCallback class and the on_epoch_end method
 # in the cell below. If you need some guidance on how to proceed, check out this link
@@ -67,14 +68,15 @@ print(f"There are {data_shape[0]} examples with shape ({data_shape[1]}, {data_sh
 ### START CODE HERE
 
 # Remember to inherit from the correct class
-class myCallback():
+class myCallback(tf.keras.callbacks.Callback):
     # Define the correct function signature for on_epoch_end
-    def on_epoch_end(None, None, None=None):
+    def on_epoch_end(self, epoch, logs=None):
         if logs.get('accuracy') is not None and logs.get('accuracy') > 0.99:
             print("\nReached 99% accuracy so cancelling training!")
 
             # Stop training once the above condition is met
-            None = None
+            self.model.stop_training = True
+
 
 ### END CODE HERE
 
@@ -99,11 +101,13 @@ def train_mnist(x_train, y_train):
     ### START CODE HERE
 
     # Instantiate the callback class
-    callbacks = None
+    callbacks = myCallback()
 
     # Define the model
     model = tf.keras.models.Sequential([
-        None,
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(256, activation=tf.nn.relu),
+        tf.keras.layers.Dense(10, activation=tf.nn.softmax)
     ])
 
     # Compile the model
@@ -113,13 +117,14 @@ def train_mnist(x_train, y_train):
 
     # Fit the model for 10 epochs adding the callbacks
     # and save the training history
-    history = model.fit(None, None, epochs=None, callbacks=[None])
+    history = model.fit(x_train, y_train, epochs=10, callbacks=[callbacks])
 
     ### END CODE HERE
 
     return history
 
-# Call the train_mnist passing in the appropiate parameters to get the training history:
+
+# Call the train_mnist passing in the appropriate parameters to get the training history:
 
 hist = train_mnist(x_train, y_train)
 
