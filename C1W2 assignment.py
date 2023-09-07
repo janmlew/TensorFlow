@@ -60,11 +60,11 @@ print(f"There are {data_shape[0]} examples with shape ({data_shape[1]}, {data_sh
 
 
 # # Defining your callback
-# Now it is time to create your own custom callback. For this complete the myCallback class and the on_epoch_end method
+# Now it is time to create your own custom callback. For this complete the MyCallback class and the on_epoch_end method
 # in the cell below. If you need some guidance on how to proceed, check out this link
 # (https://www.tensorflow.org/guide/keras/custom_callback).
 
-# GRADED CLASS: myCallback
+# GRADED CLASS: MyCallback
 ### START CODE HERE
 
 # Remember to inherit from the correct class
