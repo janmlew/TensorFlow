@@ -7,10 +7,12 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import tensorflow as tf
 from tensorflow.keras.utils import load_img, img_to_array
+from tensorflow.keras.optimizers import RMSprop
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 # !wget https://storage.googleapis.com/tensorflow-1-public/course2/week3/horse-or-human.zip
 
-# from google.colab import runtime <-- No effect outside Colab.
+# from google.colab import runtime
 # from google.colab import files
 
 # Unzip the dataset
@@ -82,19 +84,16 @@ model = tf.keras.models.Sequential([
     tf.keras.layers.Flatten(),
     # 512 neuron hidden layer
     tf.keras.layers.Dense(512, activation='relu'),
-    # Only 1 output neuron. It will contain a value from 0-1 where 0 for 1 class ('horses') and 1 for the other ('humans')
+    # Only 1 output neuron. It will contain a value from 0-1 where 0 for 1 class ('horses') and 1 for the other
+    # ('humans')
     tf.keras.layers.Dense(1, activation='sigmoid')
 ])
 
 model.summary()
 
-from tensorflow.keras.optimizers import RMSprop
-
 model.compile(loss='binary_crossentropy',
               optimizer=RMSprop(learning_rate=0.001),
               metrics=['accuracy'])
-
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 # All images will be rescaled by 1./255
 train_datagen = ImageDataGenerator(rescale=1 / 255)
@@ -113,11 +112,11 @@ history = model.fit(
     epochs=15,
     verbose=1)
 
-## NOTE: If you are using Safari and this cell throws an error,
-## please skip this block and run the next one instead.
+# NOTE: If you are using Safari and this cell throws an error,
+# please skip this block and run the next one instead.
 
-uploaded = files.upload()
-
+# uploaded = files.upload()
+"""
 for fn in uploaded.keys():
 
     # predicting images
@@ -136,7 +135,7 @@ for fn in uploaded.keys():
     else:
         print(fn + " is a horse")
 
-from tensorflow.keras.utils import img_to_array, load_img
+"""
 
 # Define a new Model that will take an image as input, and will output
 # intermediate representations for all layers in the previous model after
