@@ -5,7 +5,6 @@ import matplotlib.image as mpimg
 import tensorflow as tf
 from tensorflow.keras.optimizers import RMSprop
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-# import numpy as np
 # from google.colab import files
 from tensorflow.keras.utils import load_img, img_to_array
 import numpy as np
