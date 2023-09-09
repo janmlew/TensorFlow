@@ -216,4 +216,6 @@ for layer_name, feature_map in zip(layer_names, successive_feature_maps):
         plt.grid(False)
         plt.imshow(display_grid, aspect='auto', cmap='viridis')
 
+        plt.show()
+
 # runtime.unassign()
