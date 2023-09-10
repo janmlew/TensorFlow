@@ -40,18 +40,18 @@ def image_generator():
 
     # Instantiate the ImageDataGenerator class.
     # Remember to set the rescale argument.
-    train_datagen = None
+    train_datagen = ImageDataGenerator(rescale=1/255)
 
     # Specify the method to load images from a directory and pass in the appropriate arguments:
     # - directory: should be a relative path to the directory containing the data
-    # - targe_size: set this equal to the resolution of each image (excluding the color dimension)
+    # - target_size: set this equal to the resolution of each image (excluding the color dimension)
     # - batch_size: number of images the generator yields when asked for a next batch. Set this to 10.
     # - class_mode: How the labels are represented. Should be one of "binary", "categorical" or "sparse".
     #               Pick the one that better suits here given that the labels are going to be 1D binary labels.
-    train_generator = train_datagen.flow_from_directory(directory=None,
-                                                        target_size=(None, None),
-                                                        batch_size=None,
-                                                        class_mode=None)
+    train_generator = train_datagen.flow_from_directory(directory=base_dir,
+                                                        target_size=(150, 150),
+                                                        batch_size=10,
+                                                        class_mode="binary")
     ### END CODE HERE
 
     return train_generator
@@ -68,25 +68,29 @@ def train_happy_sad_model(train_generator):
 
     # Define the model
     model = tf.keras.models.Sequential([
-        None,
+        tf.keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(150, 150, 3)),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(150, 150, 3)),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Conv2D(64, (3, 3), activation='relu', input_shape=(150, 150, 3)),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(512, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
     ])
 
     # Compile the model
     # Select a loss function compatible with the last layer of your network
-    model.compile(loss=losses.
-    None,
-    optimizer = optimizers.
-    None,
+    model.compile(loss=losses.binary_crossentropy,
+    optimizer = optimizers.RMSprop(learning_rate=0.001),
     metrics = ['accuracy'])
-
-
 
     # Train the model
     # Your model should achieve the desired accuracy in less than 15 epochs.
     # You can hardcode up to 20 epochs in the function below but the callback should trigger before 15.
-    history = model.fit(x=None,
-                        epochs=None,
-                        callbacks=[None]
+    history = model.fit(x=train_generator,
+                        epochs=20,
+                        callbacks=[callbacks]
                         )
 
     ### END CODE HERE
