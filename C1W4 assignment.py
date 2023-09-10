@@ -6,7 +6,7 @@ from tensorflow.keras.preprocessing.image import load_img, img_to_array, ImageDa
 from tensorflow.keras import optimizers, losses
 # import base64
 
-base_dir = "./C1W4a/"
+base_dir: str = "./C1W4a/"
 happy_dir = os.path.join(base_dir, "happy/")
 sad_dir = os.path.join(base_dir, "sad/")
 
