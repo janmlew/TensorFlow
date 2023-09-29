@@ -5,9 +5,9 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from shutil import copyfile
 import matplotlib.pyplot as plt
-import colab_metadata_checker
+# import colab_metadata_checker Works only in Colab.
 
-source_path = "tmp/PetImages/"
+source_path = "tmp/PetImages"
 
 source_path_dogs = os.path.join(source_path, 'Dog')
 source_path_cats = os.path.join(source_path, 'Cat')
@@ -41,9 +41,21 @@ def create_train_val_dirs(root_path):
     # Use os.makedirs to create your directories with intermediate subdirectories
     # Don't hardcode the paths. Use os.path.join to append the new directories to the root_path parameter
 
-    pass
+    # Initial directory:
+    os.makedirs(root_dir)
 
-    ### END CODE HERE
+    # Subdirs:
+    train_dir = os.path.join(root_dir, 'training')
+    val_dir = os.path.join(root_dir, 'validation')
+    os.makedirs(train_dir)
+    os.makedirs(val_dir)
+    os.makedirs(os.path.join(train_dir, 'cats'))
+    os.makedirs(os.path.join(train_dir, 'dogs'))
+    os.makedirs(os.path.join(val_dir, 'cats'))
+    os.makedirs(os.path.join(val_dir, 'dogs'))
+
+
+### END CODE HERE
 
 
 try:
@@ -76,7 +88,26 @@ def split_data(SOURCE_DIR, TRAINING_DIR, VALIDATION_DIR, SPLIT_SIZE):
     """
 
     ### START CODE HERE
-    pass
+    source_files_list = os.listdir(SOURCE_DIR)
+
+    for f in source_files_list:
+        fpath = os.path.join(SOURCE_DIR, f)
+        if os.path.getsize(fpath) == 0:
+            print(f + " is zero length, so ignoring.")
+            source_files_list.remove(f)
+
+    source_files_len = len(source_files_list)
+    shuffled_list = random.sample(source_files_list, source_files_len)
+
+    split_point = int(source_files_len * SPLIT_SIZE)
+    training_list = shuffled_list[:split_point]
+    validation_list = shuffled_list[split_point:]
+
+    for f in training_list:
+        shutil.copyfile(SOURCE_DIR + f, TRAINING_DIR + f)
+
+    for f in validation_list:
+        copyfile(SOURCE_DIR + f, VALIDATION_DIR + f)
 
     ### END CODE HERE
 
@@ -84,11 +115,11 @@ def split_data(SOURCE_DIR, TRAINING_DIR, VALIDATION_DIR, SPLIT_SIZE):
 # Test your split_data function
 
 # Define paths
-CAT_SOURCE_DIR = "/tmp/PetImages/Cat/"
-DOG_SOURCE_DIR = "/tmp/PetImages/Dog/"
+CAT_SOURCE_DIR = "tmp/PetImages/Cat/"
+DOG_SOURCE_DIR = "tmp/PetImages/Dog/"
 
-TRAINING_DIR = "/tmp/cats-v-dogs/training/"
-VALIDATION_DIR = "/tmp/cats-v-dogs/validation/"
+TRAINING_DIR = "tmp/cats-v-dogs/training/"
+VALIDATION_DIR = "tmp/cats-v-dogs/validation/"
 
 TRAINING_CATS_DIR = os.path.join(TRAINING_DIR, "cats/")
 VALIDATION_CATS_DIR = os.path.join(VALIDATION_DIR, "cats/")
@@ -146,22 +177,22 @@ def train_val_generators(TRAINING_DIR, VALIDATION_DIR):
     ### START CODE HERE
 
     # Instantiate the ImageDataGenerator class (don't forget to set the rescale argument)
-    train_datagen = None
+    train_datagen = ImageDataGenerator(rescale=1.0 / 255.)
 
     # Pass in the appropriate arguments to the flow_from_directory method
-    train_generator = train_datagen.flow_from_directory(directory=None,
-                                                        batch_size=None,
-                                                        class_mode=None,
-                                                        target_size=(None, None))
+    train_generator = train_datagen.flow_from_directory(directory=TRAINING_DIR,
+                                                        batch_size=20,
+                                                        class_mode='binary',
+                                                        target_size=(150, 150))
 
     # Instantiate the ImageDataGenerator class (don't forget to set the rescale argument)
-    validation_datagen = None
+    validation_datagen = ImageDataGenerator(rescale=1.0 / 255.)
 
     # Pass in the appropriate arguments to the flow_from_directory method
-    validation_generator = validation_datagen.flow_from_directory(directory=None,
-                                                                  batch_size=None,
-                                                                  class_mode=None,
-                                                                  target_size=(None, None))
+    validation_generator = validation_datagen.flow_from_directory(directory=VALIDATION_DIR,
+                                                                  batch_size=20,
+                                                                  class_mode='binary',
+                                                                  target_size=(150, 150))
     ### END CODE HERE
     return train_generator, validation_generator
 
@@ -178,11 +209,19 @@ def create_model():
     ### START CODE HERE
 
     model = tf.keras.models.Sequential([
-        None,
+        tf.keras.layers.Conv2D(16, (3, 3), activation='relu', input_shape=(150, 150, 3)),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Conv2D(32, (3, 3), activation='relu'),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Flatten(),
+        tf.keras.layers.Dense(512, activation='relu'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
     ])
 
-    model.compile(optimizer=None,
-                  loss=None,
+    model.compile(optimizer=tf.keras.optimizers.RMSprop(learning_rate=0.001),
+                  loss='binary_crossentropy',
                   metrics=['accuracy'])
 
     ### END CODE HERE
@@ -226,19 +265,3 @@ print("")
 plt.plot(epochs, loss, 'r', "Training Loss")
 plt.plot(epochs, val_loss, 'b', "Validation Loss")
 plt.show()
-
-
-def download_history():
-    import pickle
-    from google.colab import files
-
-    with open('history.pkl', 'wb') as f:
-        pickle.dump(history.history, f)
-
-    files.download('history.pkl')
-
-
-download_history()
-
-# Please see the output of this cell to see which file you need to submit to the grader
-colab_metadata_checker.run('C2W1_Assignment_fixed.ipynb')
