@@ -4,7 +4,7 @@ import matplotlib.image as mpimg
 import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-base_dir = 'tmp/rps-train/rps'
+base_dir = 'tmp/rps'
 
 rock_dir = os.path.join(base_dir, 'rock')
 paper_dir = os.path.join(base_dir, 'paper')
@@ -68,7 +68,7 @@ model.summary()
 model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
 
 
-TRAINING_DIR = "tmp/rps-train/rps"
+TRAINING_DIR = "tmp/rps"
 training_datagen = ImageDataGenerator(
     rescale=1. / 255,
     rotation_range=40,
@@ -79,7 +79,7 @@ training_datagen = ImageDataGenerator(
     horizontal_flip=True,
     fill_mode='nearest')
 
-VALIDATION_DIR = "tmp/rps-test/rps-test-set"
+VALIDATION_DIR = "tmp/rps-test-set"
 validation_datagen = ImageDataGenerator(rescale=1. / 255)
 
 train_generator = training_datagen.flow_from_directory(
