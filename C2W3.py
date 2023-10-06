@@ -2,9 +2,8 @@ import os
 import zipfile
 import matplotlib.pyplot as plt
 from tensorflow.keras.applications.inception_v3 import InceptionV3
-from tensorflow.keras import layers
+from tensorflow.keras import layers, Model
 from tensorflow.keras.optimizers import RMSprop
-from tensorflow.keras import Model
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 # Set the weights file you downloaded into a variable
