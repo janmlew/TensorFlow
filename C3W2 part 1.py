@@ -97,8 +97,8 @@ print(embedding_weights.shape)
 reverse_word_index = tokenizer.index_word
 
 # Open writeable files
-out_v = io.open('vecs.tsv', 'w', encoding='utf-8')
-out_m = io.open('meta.tsv', 'w', encoding='utf-8')
+out_v = io.open('vecs-pycharm.tsv', 'w', encoding='utf-8')
+out_m = io.open('meta-pycharm.tsv', 'w', encoding='utf-8')
 
 # Initialize the loop. Start counting at `1` because `0` is just for the padding
 for word_num in range(1, vocab_size):
