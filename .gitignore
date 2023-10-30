@@ -5,4 +5,5 @@ kagglecatsanddogs_5340.zip
 training.csv
 training_cleaned.csv
 glove.6B.100d.txt
+glove_unclean.txt
 /tmp/

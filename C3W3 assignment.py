@@ -111,3 +111,10 @@ with open(GLOVE_FILE) as f:
         coefs = np.asarray(values[1:], dtype='float32')
         GLOVE_EMBEDDINGS[word] = coefs
 
+test_word = 'dog'
+
+test_vector = GLOVE_EMBEDDINGS[test_word]
+
+print(f"Vector representation of word {test_word} looks like this:\n\n{test_vector}")
+print(f"Each word vector has shape: {test_vector.shape}")
+
