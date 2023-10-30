@@ -97,3 +97,17 @@ print(f"Vocabulary contains {VOCAB_SIZE} words\n")
 print("<OOV> token included in vocabulary" if "<OOV>" in word_index else "<OOV> token NOT included in vocabulary")
 print(f"\nindex of word 'i' should be {word_index['i']}")
 
+train_labels = np.array(train_labels)
+val_labels = np.array(val_labels)
+
+GLOVE_FILE = 'glove.6B.100d.txt'
+
+GLOVE_EMBEDDINGS = {}
+
+with open(GLOVE_FILE) as f:
+    for line in f:
+        values = line.split()
+        word = values[0]
+        coefs = np.asarray(values[1:], dtype='float32')
+        GLOVE_EMBEDDINGS[word] = coefs
+
