@@ -66,3 +66,21 @@ input_sequences = n_gram_seqs(corpus, tokenizer)
 max_sequence_len = max([len(x) for x in input_sequences])
 print(f"n_grams of input_sequences have length: {len(input_sequences)}")
 print(f"maximum length of sequences is: {max_sequence_len}")
+
+
+def pad_seqs(input_sequences, maxlen):
+    """
+    Pads tokenized sequences to the same length
+    Args:
+        input_sequences (list of int): tokenized sequences to pad
+        maxlen (int): maximum length of the token sequences
+    Returns:
+        padded_sequences (array of int): tokenized sequences padded to the same length
+    """
+    padded_sequences = pad_sequences(input_sequences, maxlen=maxlen, padding='pre')
+    return padded_sequences
+
+
+# Tests the function with the n_grams_seq of the first example
+first_padded_seq = pad_seqs(first_example_sequence, max([len(x) for x in first_example_sequence]))
+print(first_padded_seq)
