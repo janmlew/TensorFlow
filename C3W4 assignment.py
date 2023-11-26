@@ -84,3 +84,11 @@ def pad_seqs(input_sequences, maxlen):
 # Tests the function with the n_grams_seq of the first example
 first_padded_seq = pad_seqs(first_example_sequence, max([len(x) for x in first_example_sequence]))
 print(first_padded_seq)
+
+# Tests your function with the n_grams_seq of the next 3 examples
+next_3_padded_seq = pad_seqs(next_3_examples_sequence, max([len(s) for s in next_3_examples_sequence]))
+print(next_3_padded_seq)
+
+# Pad the whole corpus
+input_sequences = pad_seqs(input_sequences, max_sequence_len)
+print(f"padded corpus has shape: {input_sequences.shape}")
