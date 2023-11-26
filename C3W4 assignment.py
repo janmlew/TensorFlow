@@ -92,3 +92,30 @@ print(next_3_padded_seq)
 # Pad the whole corpus
 input_sequences = pad_seqs(input_sequences, max_sequence_len)
 print(f"padded corpus has shape: {input_sequences.shape}")
+
+
+def features_and_labels(input_sequences, total_words):
+    """
+    Generates features and labels from n-grams
+    Args:
+        input_sequences (list of int): sequences to split features and labels from
+        total_words (int): vocabulary size
+    Returns:
+        features, one_hot_labels (array of int, array of int): arrays of features and one-hot encoded labels
+    """
+    features = input_sequences[:, :-1]
+    labels = input_sequences[:, -1]
+    one_hot_labels = to_categorical(labels, num_classes=total_words)
+    return features, one_hot_labels
+
+
+# Tests the function with the padded n_grams_seq of the first example
+first_features, first_labels = features_and_labels(first_padded_seq, total_words)
+print(f"labels have shape: {first_labels.shape}")
+print("\nfeatures look like this:\n")
+print(first_features)
+
+# Split the whole corpus
+features, labels = features_and_labels(input_sequences, total_words)
+print(f"features have shape: {features.shape}")
+print(f"labels have shape: {labels.shape}")
