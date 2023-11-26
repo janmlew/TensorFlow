@@ -59,3 +59,10 @@ print(first_example_sequence)
 next_3_examples_sequence = n_gram_seqs(corpus[1:4], tokenizer)
 print("n_gram sequences for next 3 examples look like this:\n")
 print(next_3_examples_sequence)
+
+# Apply the n_gram_seqs transformation to the whole corpus
+input_sequences = n_gram_seqs(corpus, tokenizer)
+# Save max length
+max_sequence_len = max([len(x) for x in input_sequences])
+print(f"n_grams of input_sequences have length: {len(input_sequences)}")
+print(f"maximum length of sequences is: {max_sequence_len}")
