@@ -31,3 +31,26 @@ print(tokenizer.texts_to_sequences(corpus[0]))
 print(tokenizer.texts_to_sequences([corpus[0]]))
 print(tokenizer.texts_to_sequences([corpus[0]])[0])
 
+
+def n_gram_seqs(corpus, tokenizer):
+    """
+    Generates a list of n-gram sequences
+    Args:
+        corpus (list of string): lines of texts to generate n-grams for
+        tokenizer (object): an instance of the Tokenizer class containing the word-index dictionary
+    Returns:
+        input_sequences (list of int): the n-gram sequences for each line in the corpus
+    """
+    input_sequences = []
+    for line in corpus:
+        token_list = tokenizer.texts_to_sequences([line])[0]
+        for i in range(1, len(token_list)):
+            n_gram_sequence = token_list[:i + 1]
+            input_sequences.append(n_gram_sequence)
+    return input_sequences
+
+
+# Tests the function with one example
+first_example_sequence = n_gram_seqs([corpus[0]], tokenizer)
+print("n_gram sequences for first example look like this:\n")
+print(first_example_sequence)
