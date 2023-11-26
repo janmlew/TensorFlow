@@ -144,3 +144,32 @@ def create_model(total_words, max_sequence_len):
 model = create_model(total_words, max_sequence_len)
 # Train the model
 history = model.fit(features, labels, epochs=50, verbose=1)
+
+# Shows the training curves of the model
+acc = history.history['accuracy']
+loss = history.history['loss']
+epochs = range(len(acc))
+plt.plot(epochs, acc, 'b', label='Training accuracy')
+plt.title('Training accuracy')
+plt.figure()
+plt.plot(epochs, loss, 'b', label='Training Loss')
+plt.title('Training loss')
+plt.legend()
+plt.show()
+
+seed_text = "Help me Obi Wan Kenobi, you're my only hope"
+next_words = 100
+for _ in range(next_words):
+    # Convert the text into sequences
+    token_list = tokenizer.texts_to_sequences([seed_text])[0]
+    # Pad the sequences
+    token_list = pad_sequences([token_list], maxlen=max_sequence_len-1, padding='pre')
+    # Get the probabilities of predicting a word
+    predicted = model.predict(token_list, verbose=0)
+    # Choose the next word based on the maximum probability
+    predicted = np.argmax(predicted, axis=-1).item()
+    # Get the actual word from the word index
+    output_word = tokenizer.index_word[predicted]
+    # Append to the current text
+    seed_text += " " + output_word
+print(seed_text)
