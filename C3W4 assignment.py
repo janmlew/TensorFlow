@@ -119,3 +119,28 @@ print(first_features)
 features, labels = features_and_labels(input_sequences, total_words)
 print(f"features have shape: {features.shape}")
 print(f"labels have shape: {labels.shape}")
+
+def create_model(total_words, max_sequence_len):
+    """
+    Creates a text generator model
+    Args:
+        total_words (int): size of the vocabulary for the Embedding layer input
+        max_sequence_len (int): length of the input sequences
+    Returns:
+        model (tf.keras Model): the text generator model
+    """
+    model = Sequential()
+    model.add(Embedding(total_words, 100, input_length=max_sequence_len - 1))
+    model.add(Bidirectional(LSTM(150)))
+    model.add(Dense(total_words, activation='softmax'))
+    # Compile the model
+    model.compile(loss='categorical_crossentropy',
+                  optimizer='adam',
+                  metrics=['accuracy'])
+    return model
+
+
+# Get the untrained model
+model = create_model(total_words, max_sequence_len)
+# Train the model
+history = model.fit(features, labels, epochs=50, verbose=1)
