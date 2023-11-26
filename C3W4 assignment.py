@@ -54,3 +54,8 @@ def n_gram_seqs(corpus, tokenizer):
 first_example_sequence = n_gram_seqs([corpus[0]], tokenizer)
 print("n_gram sequences for first example look like this:\n")
 print(first_example_sequence)
+
+# Tests the function with a bigger corpus
+next_3_examples_sequence = n_gram_seqs(corpus[1:4], tokenizer)
+print("n_gram sequences for next 3 examples look like this:\n")
+print(next_3_examples_sequence)
