@@ -35,22 +35,18 @@ def plot_series(time, series, format="-", start=0, end=None, label=None):
     # Draw the graph on screen
     plt.show()
 
-    def trend(time, slope=0):
-        """
-        Generates synthetic data that follows a straight line given a slope value.
-
-        Args:
-          time (array of int) - contains the time steps
-          slope (float) - determines the direction and steepness of the line
-
-        Returns:
-          series (array of float) - measurements that follow a straight line
-        """
-
-        # Compute the linear series given the slope
-        series = slope * time
-
-        return series
+def trend(time, slope=0):
+    """
+    Generates synthetic data that follows a straight line given a slope value.
+    Args:
+    time (array of int) - contains the time steps
+    slope (float) - determines the direction and steepness of the line
+    Returns:
+    series (array of float) - measurements that follow a straight line
+    """
+    # Compute the linear series given the slope
+    series = slope * time
+    return series
 
 # Generate time steps. Assume 1 per day for one year (365 days)
 time = np.arange(365)
