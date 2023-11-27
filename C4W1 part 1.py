@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
+
 def plot_series(time, series, format="-", start=0, end=None, label=None):
     """
     Visualizes time series data
@@ -27,13 +28,14 @@ def plot_series(time, series, format="-", start=0, end=None, label=None):
     plt.ylabel("Value")
 
     if label:
-      plt.legend(fontsize=14, labels=label)
+        plt.legend(fontsize=14, labels=label)
 
     # Overlay a grid on the graph
     plt.grid(True)
 
     # Draw the graph on screen
     plt.show()
+
 
 def trend(time, slope=0):
     """
@@ -48,6 +50,7 @@ def trend(time, slope=0):
     series = slope * time
     return series
 
+
 # Generate time steps. Assume 1 per day for one year (365 days)
 time = np.arange(365)
 
@@ -59,6 +62,7 @@ series = trend(time, slope)
 
 # Plot the results
 plot_series(time, series, label=[f'slope={slope}'])
+
 
 def seasonal_pattern(season_time):
     """
@@ -74,10 +78,11 @@ def seasonal_pattern(season_time):
 
     # Generate the values using an arbitrary pattern
     data_pattern = np.where(season_time < 0.4,
-                    np.cos(season_time * 2 * np.pi),
-                    1 / np.exp(3 * season_time))
+                            np.cos(season_time * 2 * np.pi),
+                            1 / np.exp(3 * season_time))
 
     return data_pattern
+
 
 def seasonality(time, period, amplitude=1, phase=0):
     """
@@ -100,6 +105,7 @@ def seasonality(time, period, amplitude=1, phase=0):
     data_pattern = amplitude * seasonal_pattern(season_time)
 
     return data_pattern
+
 
 # Generate time steps
 time = np.arange(4 * 365 + 1)
@@ -125,6 +131,7 @@ series = trend(time, slope) + seasonality(time, period=period, amplitude=amplitu
 # Plot the results
 plot_series(time, series)
 
+
 def noise(time, noise_level=1, seed=None):
     """Generates a normally distributed noisy signal
 
@@ -146,6 +153,7 @@ def noise(time, noise_level=1, seed=None):
 
     return noise
 
+
 # Define noise level
 noise_level = 5
 
@@ -160,6 +168,7 @@ series += noise_signal
 
 # Plot the results
 plot_series(time, series)
+
 
 def autocorrelation(time, amplitude, seed=None):
     """
@@ -201,11 +210,13 @@ def autocorrelation(time, amplitude, seed=None):
 
     return ar
 
+
 # Use time steps from previous section and generate autocorrelated data
 series = autocorrelation(time, amplitude=10, seed=42)
 
 # Plot the first 200 elements to see the pattern more clearly
 plot_series(time[:200], series[:200])
+
 
 def autocorrelation(time, amplitude, seed=None):
     """
@@ -240,11 +251,13 @@ def autocorrelation(time, amplitude, seed=None):
 
     return ar
 
+
 # Use time steps from previous section and generate autocorrelated data
 series = autocorrelation(time, amplitude=10, seed=42)
 
 # Plot the results
 plot_series(time[:200], series[:200])
+
 
 def impulses(time, num_impulses, amplitude=1, seed=None):
     """
@@ -275,11 +288,13 @@ def impulses(time, num_impulses, amplitude=1, seed=None):
 
     return series
 
+
 # Generate random impulses
 impulses_signal = impulses(time, num_impulses=10, seed=42)
 
 # Plot the results
 plot_series(time, impulses_signal)
+
 
 def autocorrelation_impulses(source, phis):
     """
@@ -300,9 +315,10 @@ def autocorrelation_impulses(source, phis):
     for step, value in enumerate(source):
         for lag, phi in phis.items():
             if step - lag > 0:
-              ar[step] += phi * ar[step - lag]
+                ar[step] += phi * ar[step - lag]
 
     return ar
+
 
 # Use the impulses from the previous section and generate autocorrelated data
 series = autocorrelation_impulses(impulses_signal, {1: 0.99})
