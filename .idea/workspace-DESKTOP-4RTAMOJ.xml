@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="17e82f31-8171-4f1d-9348-c3ef8bab9553" name="Changes" comment="Added runtime files." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" show_ignored="true" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="detached2" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;janmlew&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="e0681119-a94f-4b90-a731-33efb7c846f6" />
+        <option name="url" value="https://github.com/janmlew/TensorFlow.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$USER_HOME$/AppData/Local/Programs/Python/Python310/Lib/site-packages/keras/src/callbacks.py" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
+  <component name="ProjectId" id="2UIIwxJ4QM7zqqjaLV3aaEEhHjr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/janle/OneDrive/Dokumenty/Python/PycharmProjects/TensorFlow/C4W2 assignment.py&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+  }
+}</component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="TensorFlow" sdk-home="C:\Users\janle\AppData\Local\Programs\Python\Python310\python.exe" working-directory="$PROJECT_DIR$">
+        <option name="sdk">
+          <Sdk />
+        </option>
+        <option name="useSoftWraps" value="true" />
+        <option name="mySdkHome" value="C:\Users\janle\AppData\Local\Programs\Python\Python310\python.exe" />
+        <option name="mySdk">
+          <Sdk />
+        </option>
+        <option name="myModuleName" value="TensorFlow" />
+        <option name="myWorkingDirectory" value="$PROJECT_DIR$" />
+      </console-settings>
+    </option>
+  </component>
+  <component name="RunManager" selected="Python.C4W2 assignment">
+    <configuration name="C4W2 assignment" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="TensorFlow" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.10" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/C4W2 assignment.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="C4W2 part 1" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="TensorFlow" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.10" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/C4W2 part 1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="C4W2 part 2" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="TensorFlow" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.10" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/C4W2 part 2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="C4W2 part 3" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="TensorFlow" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.10" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/C4W2 part 3.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python.C4W2 part 1" />
+      <item itemvalue="Python.C4W2 part 2" />
+      <item itemvalue="Python.C4W2 part 3" />
+      <item itemvalue="Python.C4W2 assignment" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="17e82f31-8171-4f1d-9348-c3ef8bab9553" name="Changes" comment="" />
+      <created>1692620909990</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1692620909990</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Revert &quot;Coded the convolutional model.&quot;&#10;&#10;This reverts commit dc044b95">
+      <option name="closed" value="true" />
+      <created>1693553277873</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1693553277873</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Minor tweaks.">
+      <option name="closed" value="true" />
+      <created>1693576423520</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1693576423521</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Minor tweaks.">
+      <option name="closed" value="true" />
+      <created>1693576483963</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1693576483963</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Minor tweaks.">
+      <option name="closed" value="true" />
+      <created>1693576562636</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1693576562636</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Added second convolutional model with expanded filters.">
+      <option name="closed" value="true" />
+      <created>1693577153397</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1693577153397</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Added second convolutional model with expanded filters.">
+      <option name="closed" value="true" />
+      <created>1693577417549</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1693577417549</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Added visualizations for the filtering.">
+      <option name="closed" value="true" />
+      <created>1693578581887</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1693578581887</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Grammar.">
+      <option name="closed" value="true" />
+      <created>1693579273439</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1693579273439</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Minor changes + added new file.">
+      <option name="closed" value="true" />
+      <created>1693649141660</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1693649141660</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Minor changes + added new file.">
+      <option name="closed" value="true" />
+      <created>1693651531346</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1693651531346</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Added some code, mainly callbacks. Renamed old files for consistency and added a new file.">
+      <option name="closed" value="true" />
+      <created>1693734020251</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1693734020251</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Added code for further explorations of filtering for convolutions. These are analogues of convolution filters made simple.">
+      <option name="closed" value="true" />
+      <created>1693735227727</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1693735227728</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Minor additions.">
+      <option name="closed" value="true" />
+      <created>1693846777028</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1693846777028</updated>
+    </task>
+    <task id="LOCAL-00030" summary="New PyTorch unsolved assignment file.">
+      <option name="closed" value="true" />
+      <created>1694000867598</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1694000867598</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Solved the first assignment.">
+      <option name="closed" value="true" />
+      <created>1694004330446</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1694004330446</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Second-week assignment (unsolved).">
+      <option name="closed" value="true" />
+      <created>1694007691104</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1694007691104</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Added mnist.npz file.">
+      <option name="closed" value="true" />
+      <created>1694017479005</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1694017479005</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Solved the problem. Added inheritance from tf.keras.callbacks.Callback in myCallback definition to avoid compiling error.">
+      <option name="closed" value="true" />
+      <created>1694020031009</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1694020031009</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Created unsolved assignment file in PyCharm.">
+      <option name="closed" value="true" />
+      <created>1694021688915</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1694021688915</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Solved C1W3 for RGB instead of grayscale, minor PEP 8 tweaks in class definitions.">
+      <option name="closed" value="true" />
+      <created>1694060856391</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1694060856391</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Created first C1W4 files.">
+      <option name="closed" value="true" />
+      <created>1694064195009</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1694064195009</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Bugfix.">
+      <option name="closed" value="true" />
+      <created>1694100142643</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1694100142643</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Bugfix.">
+      <option name="closed" value="true" />
+      <created>1694100295694</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1694100295694</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Bugfix.">
+      <option name="closed" value="true" />
+      <created>1694100401737</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1694100401737</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Created files for W4.">
+      <option name="closed" value="true" />
+      <created>1694100693009</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1694100693009</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Additional fixes due to environment not being Colab.">
+      <option name="closed" value="true" />
+      <created>1694102519692</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1694102519692</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Additional fixes due to environment not being Colab.">
+      <option name="closed" value="true" />
+      <created>1694163821195</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1694163821195</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Name change :)">
+      <option name="closed" value="true" />
+      <created>1694163861241</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1694163861241</updated>
+    </task>
+    <task id="LOCAL-00045" summary="New file.">
+      <option name="closed" value="true" />
+      <created>1694164102358</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1694164102358</updated>
+    </task>
+    <task id="LOCAL-00046" summary="Added .gitignore info.">
+      <option name="closed" value="true" />
+      <created>1694165205563</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1694165205563</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Code + resulting validation files.">
+      <option name="closed" value="true" />
+      <created>1694165817117</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1694165817117</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Deleted unnecessary comment in imports.">
+      <option name="closed" value="true" />
+      <created>1694166854517</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1694166854517</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Added ignored Colab code for consistency.">
+      <option name="closed" value="true" />
+      <created>1694242716758</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1694242716758</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Added ignored Colab code for consistency.">
+      <option name="closed" value="true" />
+      <created>1694242786978</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1694242786978</updated>
+    </task>
+    <task id="LOCAL-00051" summary="New file written for PyCharm.">
+      <option name="closed" value="true" />
+      <created>1694272564785</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1694272564785</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Fixup.">
+      <option name="closed" value="true" />
+      <created>1694297102337</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1694297102338</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Added new file to the project.">
+      <option name="closed" value="true" />
+      <created>1694327345659</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1694327345659</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Code + structural fixes.">
+      <option name="closed" value="true" />
+      <created>1694328451771</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1694328451771</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Added assignment files + path change in code.">
+      <option name="closed" value="true" />
+      <created>1694328820067</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1694328820067</updated>
+    </task>
+    <task id="LOCAL-00056" summary="PEP 8 fixup.">
+      <option name="closed" value="true" />
+      <created>1694330077318</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1694330077318</updated>
+    </task>
+    <task id="LOCAL-00057" summary="Solved assignment">
+      <option name="closed" value="true" />
+      <created>1694331653711</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1694331653711</updated>
+    </task>
+    <task id="LOCAL-00058" summary="PEP 8 fixups.">
+      <option name="closed" value="true" />
+      <created>1694331840353</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1694331840353</updated>
+    </task>
+    <task id="LOCAL-00059" summary="Added new PyCharm file and a new .gitignore rule.">
+      <option name="closed" value="true" />
+      <created>1694615650098</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1694615650098</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Files created during runtime.">
+      <option name="closed" value="true" />
+      <created>1694618587600</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1694618587601</updated>
+    </task>
+    <task id="LOCAL-00061" summary="PyCharm config update.">
+      <option name="closed" value="true" />
+      <created>1698950532542</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1698950532543</updated>
+    </task>
+    <task id="LOCAL-00062" summary="Added code.">
+      <option name="closed" value="true" />
+      <created>1701330524960</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1701330524961</updated>
+    </task>
+    <task id="LOCAL-00063" summary="Added code after a tuneup.">
+      <option name="closed" value="true" />
+      <created>1701331332740</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1701331332740</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Added code after a tuneup.">
+      <option name="closed" value="true" />
+      <created>1701331536877</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1701331536877</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Added runtime files.">
+      <option name="closed" value="true" />
+      <created>1701332444673</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1701332444673</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="User">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="*" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="master" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Solved C1W3 for RGB instead of grayscale, minor PEP 8 tweaks in class definitions." />
+    <MESSAGE value="Created first C1W4 files." />
+    <MESSAGE value="Bugfix." />
+    <MESSAGE value="Created files for W4." />
+    <MESSAGE value="Additional fixes due to environment not being Colab." />
+    <MESSAGE value="Name change :)" />
+    <MESSAGE value="New file." />
+    <MESSAGE value="Added .gitignore info." />
+    <MESSAGE value="Code + resulting validation files." />
+    <MESSAGE value="Deleted unnecessary comment in imports." />
+    <MESSAGE value="Added ignored Colab code for consistency." />
+    <MESSAGE value="New file written for PyCharm." />
+    <MESSAGE value="Fixup." />
+    <MESSAGE value="Added new file to the project." />
+    <MESSAGE value="Code + structural fixes." />
+    <MESSAGE value="Added assignment files + path change in code." />
+    <MESSAGE value="PEP 8 fixup." />
+    <MESSAGE value="Solved assignment" />
+    <MESSAGE value="PEP 8 fixups." />
+    <MESSAGE value="Added new PyCharm file and a new .gitignore rule." />
+    <MESSAGE value="Files created during runtime." />
+    <MESSAGE value="PyCharm config update." />
+    <MESSAGE value="Added code." />
+    <MESSAGE value="Added code after a tuneup." />
+    <MESSAGE value="Added runtime files." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added runtime files." />
+  </component>
+</project>
