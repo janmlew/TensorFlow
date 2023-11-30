@@ -250,3 +250,26 @@ def create_model(num_words, embedding_dim, maxlen):
 model = create_model(NUM_WORDS, EMBEDDING_DIM, MAXLEN)
 
 history = model.fit(train_padded_seq, train_label_seq, epochs=30, validation_data=(val_padded_seq, val_label_seq))
+
+
+def plot_graphs(history, metric):
+    plt.plot(history.history[metric])
+    plt.plot(history.history[f'val_{metric}'])
+    plt.xlabel("Epochs")
+    plt.ylabel(metric)
+    plt.legend([metric, f'val_{metric}'])
+    plt.show()
+
+
+plot_graphs(history, "accuracy")
+plot_graphs(history, "loss")
+
+# Reverse word index
+reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
+
+# Save the embedding layer
+e = model.layers[0]
+
+# Save the weights of the embedding layer
+weights = e.get_weights()[0]
+print(f"Weights of embedding layer have shape: {weights.shape}")
