@@ -276,7 +276,7 @@ model_tune = tf.keras.models.Sequential([
 ])
 
 # Set the optimizer with the tuned learning rate
-optimizer = tf.keras.optimizers.SGD(learning_rate=2e-6, momentum=0.9)
+optimizer = tf.keras.optimizers.SGD(learning_rate=8e-6, momentum=0.9)
 
 # Set the training parameters
 model_tune.compile(loss="mse", optimizer=optimizer)
