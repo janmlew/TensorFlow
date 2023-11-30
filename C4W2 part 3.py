@@ -266,4 +266,52 @@ plt.semilogx(lrs, history.history["loss"])
 plt.tick_params('both', length=10, width=1, which='both')
 
 # Set the plot boundaries
-plt.axis((1e-8, 1e-3, 0, 300))
+plt.axis([1e-8, 1e-3, 0, 300])
+
+# Build the model
+model_tune = tf.keras.models.Sequential([
+  tf.keras.layers.Dense(10, activation="relu", input_shape=[window_size]),
+  tf.keras.layers.Dense(10, activation="relu"),
+  tf.keras.layers.Dense(1)
+])
+
+# Set the optimizer with the tuned learning rate
+optimizer = tf.keras.optimizers.SGD(learning_rate=2e-6, momentum=0.9)
+
+# Set the training parameters
+model_tune.compile(loss="mse", optimizer=optimizer)
+
+# Train the model
+history = model_tune.fit(dataset, epochs=100)
+
+# Plot the loss
+loss = history.history['loss']
+epochs = range(len(loss))
+plt.plot(epochs, loss, 'b', label='Training Loss')
+plt.show()
+
+# Plot all but the first 10
+loss = history.history['loss']
+epochs = range(10, len(loss))
+plot_loss = loss[10:]
+plt.plot(epochs, plot_loss, 'b', label='Training Loss')
+plt.show()
+
+# Initialize a list
+forecast = []
+
+# Reduce the original series
+forecast_series = series[split_time - window_size:]
+
+# Use the model to predict data points per window size
+for time in range(len(forecast_series) - window_size):
+  forecast.append(model_tune.predict(forecast_series[time:time + window_size][np.newaxis]))
+
+# Convert to a numpy array and drop single dimensional axes
+results = np.array(forecast).squeeze()
+
+# Plot the results
+plot_series(time_valid, (x_valid, results))
+
+print(tf.keras.metrics.mean_squared_error(x_valid, results).numpy())
+print(tf.keras.metrics.mean_absolute_error(x_valid, results).numpy())
