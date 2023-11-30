@@ -180,6 +180,7 @@ val_padded_seq = seq_and_pad(val_sentences, tokenizer, PADDING, MAXLEN)
 print(f"Padded training sequences have shape: {train_padded_seq.shape}\n")
 print(f"Padded validation sequences have shape: {val_padded_seq.shape}")
 
+
 def tokenize_labels(all_labels, split_labels):
     """
     Tokenizes the labels
@@ -206,6 +207,7 @@ def tokenize_labels(all_labels, split_labels):
 
     return label_seq_np
 
+
 # Test the function
 train_label_seq = tokenize_labels(labels, train_labels)
 val_label_seq = tokenize_labels(labels, val_labels)
@@ -214,3 +216,37 @@ print(f"First 5 labels of the training set should look like this:\n{train_label_
 print(f"First 5 labels of the validation set should look like this:\n{val_label_seq[:5]}\n")
 print(f"Tokenized labels of the training set have shape: {train_label_seq.shape}\n")
 print(f"Tokenized labels of the validation set have shape: {val_label_seq.shape}\n")
+
+
+def create_model(num_words, embedding_dim, maxlen):
+    """
+    Creates a text classifier model
+
+    Args:
+        num_words (int): size of the vocabulary for the Embedding layer input
+        embedding_dim (int): dimensionality of the Embedding layer output
+        maxlen (int): length of the input sequences
+
+    Returns:
+        model (tf.keras Model): the text classifier model
+    """
+
+    tf.random.set_seed(123)
+
+    model = tf.keras.Sequential([
+        tf.keras.layers.Embedding(num_words, embedding_dim, input_length=maxlen),
+        tf.keras.layers.GlobalAveragePooling1D(),
+        tf.keras.layers.Dense(50, activation='relu'),
+        tf.keras.layers.Dense(5, activation='softmax'),
+    ])
+
+    model.compile(loss='sparse_categorical_crossentropy',
+                  optimizer='rmsprop',
+                  metrics=['accuracy'])
+
+    return model
+
+
+model = create_model(NUM_WORDS, EMBEDDING_DIM, MAXLEN)
+
+history = model.fit(train_padded_seq, train_label_seq, epochs=30, validation_data=(val_padded_seq, val_label_seq))
