@@ -83,3 +83,38 @@ print(f"There are {len(sentences)} sentences in the dataset.\n")
 print(f"First sentence has {len(sentences[0].split())} words (after removing stopwords).\n")
 print(f"There are {len(labels)} labels in the dataset.\n")
 print(f"The first 5 labels are {labels[:5]}")
+
+
+def train_val_split(sentences, labels, training_split):
+    """
+    Splits the dataset into training and validation sets
+
+    Args:
+        sentences (list of string): lower-cased sentences without stopwords
+        labels (list of string): list of labels
+        training split (float): proportion of the dataset to convert to include in the train set
+
+    Returns:
+        train_sentences, validation_sentences, train_labels, validation_labels - lists containing the data splits
+    """
+
+    # Compute the number of sentences that will be used for training (should be an integer)
+    train_size = int(len(labels) * training_split)
+
+    # Split the sentences and labels into train/validation splits
+    train_sentences = sentences[:train_size]  # Note that sentences=labels, so
+    train_labels = labels[:train_size]  # both sentences and labels work here.
+
+    validation_sentences = sentences[train_size:]
+    validation_labels = labels[train_size:]
+
+    return train_sentences, validation_sentences, train_labels, validation_labels
+
+
+# Test the function
+train_sentences, val_sentences, train_labels, val_labels = train_val_split(sentences, labels, TRAINING_SPLIT)
+
+print(f"There are {len(train_sentences)} sentences for training.\n")
+print(f"There are {len(train_labels)} labels for training.\n")
+print(f"There are {len(val_sentences)} sentences for validation.\n")
+print(f"There are {len(val_labels)} labels for validation.")
