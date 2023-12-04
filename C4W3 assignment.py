@@ -142,3 +142,58 @@ lr_history = adjust_learning_rate()
 # Plot the loss for every LR
 plt.semilogx(lr_history.history["lr"], lr_history.history["loss"])
 plt.axis([1e-6, 1, 0, 30])
+
+
+def create_model():
+    tf.random.set_seed(51)
+
+    model = create_uncompiled_model()
+
+    model.compile(loss=tf.keras.losses.Huber(),
+                  optimizer=tf.keras.optimizers.SGD(learning_rate=2e-6, momentum=0.9),
+                  metrics=["mae"])
+
+    return model
+
+
+# Save an instance of the model
+model = create_model()
+
+# Train it
+history = model.fit(dataset, epochs=50)
+
+
+def compute_metrics(true_series, forecast):
+    mse = tf.keras.metrics.mean_squared_error(true_series, forecast).numpy()
+    mae = tf.keras.metrics.mean_absolute_error(true_series, forecast).numpy()
+
+    return mse, mae
+
+
+def model_forecast(model, series, window_size):
+    ds = tf.data.Dataset.from_tensor_slices(series)
+    ds = ds.window(window_size, shift=1, drop_remainder=True)
+    ds = ds.flat_map(lambda w: w.batch(window_size))
+    ds = ds.batch(32).prefetch(1)
+    forecast = model.predict(ds)
+    return forecast
+
+
+# Compute the forecast for all the series
+rnn_forecast = model_forecast(model, G.SERIES, G.WINDOW_SIZE).squeeze()
+
+# Slice the forecast to get only the predictions for the validation set
+rnn_forecast = rnn_forecast[G.SPLIT_TIME - G.WINDOW_SIZE:-1]
+
+# Plot it
+plt.figure(figsize=(10, 6))
+
+plot_series(time_valid, series_valid)
+plot_series(time_valid, rnn_forecast)
+
+mse, mae = compute_metrics(series_valid, rnn_forecast)
+
+print(f"mse: {mse:.2f}, mae: {mae:.2f} for forecast")
+
+# Save your model in the SavedModel format
+model.save('saved_model/my_model')
