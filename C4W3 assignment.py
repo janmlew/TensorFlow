@@ -94,3 +94,51 @@ def windowed_dataset(series, window_size=G.WINDOW_SIZE, batch_size=G.BATCH_SIZE,
 
 # Apply the transformation to the training set
 dataset = windowed_dataset(series_train)
+
+
+def create_uncompiled_model():
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Lambda(lambda x: tf.expand_dims(x, axis=-1), input_shape=[20]),
+        tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32, return_sequences=True)),
+        tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32)),
+        tf.keras.layers.Dense(1),
+        tf.keras.layers.Lambda(lambda x: x * 100.0)
+    ])
+    return model
+
+
+# Test your uncompiled model
+uncompiled_model = create_uncompiled_model()
+
+try:
+    uncompiled_model.predict(dataset)
+except:
+    print("Your current architecture is incompatible with the windowed dataset, try adjusting it.")
+else:
+    print("Your current architecture is compatible with the windowed dataset! :)")
+
+
+def adjust_learning_rate():
+    model = create_uncompiled_model()
+
+    lr_schedule = tf.keras.callbacks.LearningRateScheduler(lambda epoch: 1e-6 * 10 ** (epoch / 20))
+
+    # Select your optimizer
+    optimizer = tf.keras.optimizers.SGD(momentum=0.9)
+
+    # Compile the model passing in the appropriate loss
+    model.compile(loss=tf.keras.losses.Huber(),
+                  optimizer=optimizer,
+                  metrics=["mae"])
+
+    history = model.fit(dataset, epochs=100, callbacks=[lr_schedule])
+
+    return history
+
+
+# Run the training with dynamic LR
+lr_history = adjust_learning_rate()
+
+# Plot the loss for every LR
+plt.semilogx(lr_history.history["lr"], lr_history.history["loss"])
+plt.axis([1e-6, 1, 0, 30])
