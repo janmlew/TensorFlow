@@ -28,7 +28,7 @@ def parse_data_from_file(filename):
         reader = csv.reader(csvfile, delimiter=',')
         next(reader)
         for row in reader:
-            times.append(np.datetime64(row[0]))
+            times.append(np.datetime64(row[0]).astype(int)-4018)
             temperatures.append(float(row[1]))
 
     return times, temperatures
