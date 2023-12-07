@@ -28,7 +28,7 @@ def parse_data_from_file(filename):
         reader = csv.reader(csvfile, delimiter=',')
         next(reader)
         for row in reader:
-            times.append(np.datetime64(row[0]).astype(int)-4018)
+            times.append(np.datetime64(row[0]).astype(int) - 4018)
             temperatures.append(float(row[1]))
 
     return times, temperatures
@@ -78,3 +78,27 @@ def windowed_dataset(series, window_size=G.WINDOW_SIZE, batch_size=G.BATCH_SIZE,
 # Apply the transformation to the training set
 train_set = windowed_dataset(series_train, window_size=G.WINDOW_SIZE, batch_size=G.BATCH_SIZE,
                              shuffle_buffer=G.SHUFFLE_BUFFER_SIZE)
+
+
+def create_uncompiled_model():
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Conv1D(filters=50, kernel_size=5, batch_size=250, strides=1, padding="causal",
+                               activation="relu", input_shape=[None, 1]),
+        tf.keras.layers.LSTM(50, return_sequences=True),
+        tf.keras.layers.LSTM(50),
+        tf.keras.layers.Dense(25, activation="relu"),
+        tf.keras.layers.Dense(5, activation="relu"),
+        tf.keras.layers.Dense(1)
+    ])
+    return model
+
+
+# Test your uncompiled model
+uncompiled_model = create_uncompiled_model()
+
+try:
+    uncompiled_model.predict(train_set)
+except:
+    print("Your current architecture is incompatible with the windowed dataset, try adjusting it.")
+else:
+    print("Your current architecture is compatible with the windowed dataset! :)")
