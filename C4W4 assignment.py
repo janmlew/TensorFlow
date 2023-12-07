@@ -102,3 +102,21 @@ except:
     print("Your current architecture is incompatible with the windowed dataset, try adjusting it.")
 else:
     print("Your current architecture is compatible with the windowed dataset! :)")
+
+
+def adjust_learning_rate(dataset):
+    model = create_uncompiled_model()
+
+    lr_schedule = tf.keras.callbacks.LearningRateScheduler(lambda epoch: 1e-4 * 10 ** (epoch / 20))
+
+    # Select your optimizer
+    optimizer = tf.keras.optimizers.SGD(momentum=0.9)
+
+    # Compile the model passing in the appropriate loss
+    model.compile(loss=tf.keras.losses.Huber(),
+                  optimizer=optimizer,
+                  metrics=["mae"])
+
+    history = model.fit(dataset, epochs=100, callbacks=[lr_schedule])
+
+    return history
