@@ -50,3 +50,31 @@ class G:
 plt.figure(figsize=(10, 6))
 plot_series(G.TIME, G.SERIES)
 plt.show()
+
+
+def train_val_split(time, series, time_step=G.SPLIT_TIME):
+    time_train = time[:time_step]
+    series_train = series[:time_step]
+    time_valid = time[time_step:]
+    series_valid = series[time_step:]
+
+    return time_train, series_train, time_valid, series_valid
+
+
+# Split the dataset
+time_train, series_train, time_valid, series_valid = train_val_split(G.TIME, G.SERIES)
+
+
+def windowed_dataset(series, window_size=G.WINDOW_SIZE, batch_size=G.BATCH_SIZE, shuffle_buffer=G.SHUFFLE_BUFFER_SIZE):
+    ds = tf.data.Dataset.from_tensor_slices(series)
+    ds = ds.window(window_size + 1, shift=1, drop_remainder=True)
+    ds = ds.flat_map(lambda w: w.batch(window_size + 1))
+    ds = ds.shuffle(shuffle_buffer)
+    ds = ds.map(lambda w: (w[:-1], w[-1]))
+    ds = ds.batch(batch_size).prefetch(1)
+    return ds
+
+
+# Apply the transformation to the training set
+train_set = windowed_dataset(series_train, window_size=G.WINDOW_SIZE, batch_size=G.BATCH_SIZE,
+                             shuffle_buffer=G.SHUFFLE_BUFFER_SIZE)
