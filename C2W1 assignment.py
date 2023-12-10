@@ -35,27 +35,16 @@ def create_train_val_dirs(root_path):
     Returns:
       None
     """
-    ### START CODE HERE
-
     # HINT:
     # Use os.makedirs to create your directories with intermediate subdirectories
     # Don't hardcode the paths. Use os.path.join to append the new directories to the root_path parameter
 
-    # Initial directory:
-    os.makedirs(root_path)
-
-    # Subdirs:
-    train_dir = os.path.join(root_path, 'training')
-    val_dir = os.path.join(root_path, 'validation')
-    os.makedirs(train_dir)
-    os.makedirs(val_dir)
-    os.makedirs(os.path.join(train_dir, 'cats'))
-    os.makedirs(os.path.join(train_dir, 'dogs'))
-    os.makedirs(os.path.join(val_dir, 'cats'))
-    os.makedirs(os.path.join(val_dir, 'dogs'))
-
-
-### END CODE HERE
+    os.makedirs(os.path.join(root_dir, 'training'))
+    os.makedirs(os.path.join(root_dir, 'validation'))
+    os.makedirs(os.path.join(root_dir, 'training/cats'))
+    os.makedirs(os.path.join(root_dir, 'training/dogs'))
+    os.makedirs(os.path.join(root_dir, 'validation/cats'))
+    os.makedirs(os.path.join(root_dir, 'validation/dogs'))
 
 
 try:
