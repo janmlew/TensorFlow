@@ -208,7 +208,7 @@ def create_model():
         tf.keras.layers.MaxPooling2D(2, 2),
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dense(512, activation='relu'),
-        tf.keras.layers.Dense(1, activation='sigmoid'),
+        tf.keras.layers.Dense(1, activation='sigmoid')
     ])
 
     model.compile(optimizer=tf.keras.optimizers.RMSprop(learning_rate=0.001),
