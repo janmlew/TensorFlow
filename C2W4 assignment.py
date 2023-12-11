@@ -9,15 +9,15 @@ TRAINING_FILE = 'sign_mnist_train.csv'
 VALIDATION_FILE = 'sign_mnist_test.csv'
 
 with open(TRAINING_FILE) as training_file:
-  line = training_file.readline()
-  print(f"First line (header) looks like this:\n{line}")
-  line = training_file.readline()
-  print(f"Each subsequent line (data points) look like this:\n{line}")
+    line = training_file.readline()
+    print(f"First line (header) looks like this:\n{line}")
+    line = training_file.readline()
+    print(f"Each subsequent line (data points) look like this:\n{line}")
 
 
 # GRADED FUNCTION: parse_data_from_input
 def parse_data_from_input(filename):
-  """
+    """
   Parses the images and labels from a CSV file
 
   Args:
@@ -27,7 +27,7 @@ def parse_data_from_input(filename):
     images, labels: tuple of numpy arrays containing the images and labels
   """
 
-  """
+    """
 
   labels = []
   images = []
@@ -55,19 +55,18 @@ def parse_data_from_input(filename):
   #Alternative to csv.reader:
   #f = np.loadtxt(TRAINING_FILE, delimiter=',', skiprows=1)
   """
-  # I think the second version is more elegant:
+    # I think the second version is more elegant:
 
-  images = np.loadtxt(filename, delimiter=',', skiprows=1)
+    images = np.loadtxt(filename, delimiter=',', skiprows=1)
 
-  labels = images[:, 0]
-  images = images[:, 1:]
+    labels = images[:, 0]
+    images = images[:, 1:]
 
-  labels = np.array(labels, dtype=np.float64)
-  images = np.array(images, dtype=np.float64).reshape(len(labels), 28, 28)
+    labels = np.array(labels, dtype=np.float64)
+    images = np.array(images, dtype=np.float64).reshape(len(labels), 28, 28)
 
-  ### END CODE HERE
+    return images, labels
 
-  return images, labels
 
 # Test your function
 training_images, training_labels = parse_data_from_input(TRAINING_FILE)
@@ -78,29 +77,32 @@ print(f"Training labels has shape: {training_labels.shape} and dtype: {training_
 print(f"Validation images has shape: {validation_images.shape} and dtype: {validation_images.dtype}")
 print(f"Validation labels has shape: {validation_labels.shape} and dtype: {validation_labels.dtype}")
 
+
 # Plot a sample of 10 images from the training set
 def plot_categories(training_images, training_labels):
-  fig, axes = plt.subplots(1, 10, figsize=(16, 15))
-  axes = axes.flatten()
-  letters = list(string.ascii_lowercase)
+    fig, axes = plt.subplots(1, 10, figsize=(16, 15))
+    axes = axes.flatten()
+    letters = list(string.ascii_lowercase)
 
-  for k in range(10):
-    img = training_images[k]
-    img = np.expand_dims(img, axis=-1)
-    img = array_to_img(img)
-    ax = axes[k]
-    ax.imshow(img, cmap="Greys_r")
-    ax.set_title(f"{letters[int(training_labels[k])]}")
-    ax.set_axis_off()
+    for k in range(10):
+        img = training_images[k]
+        img = np.expand_dims(img, axis=-1)
+        img = array_to_img(img)
+        ax = axes[k]
+        ax.imshow(img, cmap="Greys_r")
+        ax.set_title(f"{letters[int(training_labels[k])]}")
+        ax.set_axis_off()
 
-  plt.tight_layout()
-  plt.show()
+    plt.tight_layout()
+    plt.show()
+
 
 plot_categories(training_images, training_labels)
 
+
 # GRADED FUNCTION: train_val_generators
 def train_val_generators(training_images, training_labels, validation_images, validation_labels):
-  """
+    """
   Creates the training and validation data generators
 
   Args:
@@ -112,79 +114,74 @@ def train_val_generators(training_images, training_labels, validation_images, va
   Returns:
     train_generator, validation_generator - tuple containing the generators
   """
-  ### START CODE HERE
+    # In this section you will have to add another dimension to the data
+    # So, for example, if your array is (10000, 28, 28)
+    # You will need to make it (10000, 28, 28, 1)
+    # Hint: np.expand_dims
+    training_images = np.expand_dims(training_images, axis=3)
+    validation_images = np.expand_dims(validation_images, axis=3)
 
-  # In this section you will have to add another dimension to the data
-  # So, for example, if your array is (10000, 28, 28)
-  # You will need to make it (10000, 28, 28, 1)
-  # Hint: np.expand_dims
-  training_images = np.expand_dims(training_images, axis=3)
-  validation_images = np.expand_dims(validation_images, axis=3)
+    # Instantiate the ImageDataGenerator class
+    # Don't forget to normalize pixel values
+    # and set arguments to augment the images (if desired)
+    train_datagen = ImageDataGenerator(rescale=1. / 255.,
+                                       rotation_range=40,
+                                       width_shift_range=0.2,
+                                       height_shift_range=0.2,
+                                       shear_range=0.2,
+                                       zoom_range=0.2,
+                                       horizontal_flip=True,
+                                       fill_mode='nearest')
 
-  # Instantiate the ImageDataGenerator class
-  # Don't forget to normalize pixel values
-  # and set arguments to augment the images (if desired)
-  train_datagen = ImageDataGenerator(rescale = 1./255.,
-                                     rotation_range=40,
-                                     width_shift_range=0.2,
-                                     height_shift_range=0.2,
-                                     shear_range=0.2,
-                                     zoom_range=0.2,
-                                     horizontal_flip=True,
-                                     fill_mode='nearest')
+    # Pass in the appropriate arguments to the flow method
+    train_generator = train_datagen.flow(x=training_images,
+                                         y=training_labels,
+                                         batch_size=32)
+    # subset='training')
 
-  # Pass in the appropriate arguments to the flow method
-  train_generator = train_datagen.flow(x=training_images,
-                                       y=training_labels,
-                                       batch_size=32)
-                                       #subset='training')
+    # Instantiate the ImageDataGenerator class (don't forget to set the rescale argument)
+    # Remember that validation data should not be augmented
+    validation_datagen = ImageDataGenerator(rescale=1. / 255.)
 
-  # Instantiate the ImageDataGenerator class (don't forget to set the rescale argument)
-  # Remember that validation data should not be augmented
-  validation_datagen = ImageDataGenerator(rescale = 1./255.)
+    # Pass in the appropriate arguments to the flow method
+    validation_generator = validation_datagen.flow(x=validation_images,
+                                                   y=validation_labels,
+                                                   batch_size=32)
+    # subset='validation')
 
-  # Pass in the appropriate arguments to the flow method
-  validation_generator = validation_datagen.flow(x=validation_images,
-                                                 y=validation_labels,
-                                                 batch_size=32)
-                                                 #subset='validation')
+    return train_generator, validation_generator
 
-  ### END CODE HERE
-
-  return train_generator, validation_generator
 
 # Test your generators
-train_generator, validation_generator = train_val_generators(training_images, training_labels, validation_images, validation_labels)
+train_generator, validation_generator = train_val_generators(training_images, training_labels, validation_images,
+                                                             validation_labels)
 
 print(f"Images of training generator have shape: {train_generator.x.shape}")
 print(f"Labels of training generator have shape: {train_generator.y.shape}")
 print(f"Images of validation generator have shape: {validation_generator.x.shape}")
 print(f"Labels of validation generator have shape: {validation_generator.y.shape}")
 
+
 def create_model():
+    # Define the model
+    # Use no more than 2 Conv2D and 2 MaxPooling2D
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Conv2D(64, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Conv2D(128, (3, 3), activation='relu'),
+        tf.keras.layers.MaxPooling2D(2, 2),
+        tf.keras.layers.Flatten(),
+        # tf.keras.layers.Dropout(0.5),
+        tf.keras.layers.Dense(512, activation='relu'),
+        tf.keras.layers.Dense(25, activation='softmax')
+    ])
 
-  ### START CODE HERE
+    model.compile(loss='sparse_categorical_crossentropy',
+                  optimizer='rmsprop',
+                  metrics=['accuracy'])
 
-  # Define the model
-  # Use no more than 2 Conv2D and 2 MaxPooling2D
-  model = tf.keras.models.Sequential([
-      tf.keras.layers.Conv2D(64, (3, 3), activation='relu', input_shape=(28, 28, 1)),
-      tf.keras.layers.MaxPooling2D(2, 2),
-      tf.keras.layers.Conv2D(128, (3, 3), activation='relu'),
-      tf.keras.layers.MaxPooling2D(2, 2),
-      tf.keras.layers.Flatten(),
-      #tf.keras.layers.Dropout(0.5),
-      tf.keras.layers.Dense(512, activation='relu'),
-      tf.keras.layers.Dense(25, activation='softmax')
-  ])
+    return model
 
-  model.compile(loss = 'sparse_categorical_crossentropy',
-                optimizer = 'rmsprop',
-                metrics=['accuracy'])
-
-  ### END CODE HERE
-
-  return model
 
 # Save your model
 model = create_model()
