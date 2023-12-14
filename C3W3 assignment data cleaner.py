@@ -2,8 +2,8 @@ import pandas as pd
 import os
 import string
 
-training = pd.read_csv('training.csv', encoding_errors="ignore")
-training.to_csv('training_cleaned.csv', index=False, encoding='utf-8')
+# training = pd.read_csv('training.csv', encoding_errors="ignore")
+# training.to_csv('training_cleaned.csv', index=False, encoding='utf-8')
 
 if os.path.exists("glove.6B.100d.txt"):
     os.remove("glove.6B.100d.txt")
