@@ -1,275 +1,177 @@
-import io
-import csv
-import tensorflow as tf
 import numpy as np
-from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.preprocessing.sequence import pad_sequences
+import tensorflow as tf
 import matplotlib.pyplot as plt
+from dataclasses import dataclass
 
-with open("./bbc-text.csv", 'r') as csvfile:
-    print(f"First line (header) looks like this:\n\n{csvfile.readline()}")
-    print(f"Each data point looks like this:\n\n{csvfile.readline()}")
-
-NUM_WORDS = 1000
-EMBEDDING_DIM = 16
-MAXLEN = 120
-PADDING = 'post'
-OOV_TOKEN = "<OOV>"
-TRAINING_SPLIT = .8
 
+def plot_series(time, series, format="-", start=0, end=None):
+    plt.plot(time[start:end], series[start:end], format)
+    plt.xlabel("Time")
+    plt.ylabel("Value")
+    plt.grid(False)
 
-def remove_stopwords(sentence):
-    """
-    Removes a list of stopwords
 
-    Args:
-        sentence (string): sentence to remove the stopwords from
+def trend(time, slope=0):
+    return slope * time
 
-    Returns:
-        sentence (string): lowercase sentence without the stopwords
-    """
-    # List of stopwords
-    stopwords = ["a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any", "are", "as", "at",
-                 "be", "because", "been", "before", "being", "below", "between", "both", "but", "by", "could", "did",
-                 "do", "does", "doing", "down", "during", "each", "few", "for", "from", "further", "had", "has", "have",
-                 "having", "he", "he'd", "he'll", "he's", "her", "here", "here's", "hers", "herself", "him", "himself",
-                 "his", "how", "how's", "i", "i'd", "i'll", "i'm", "i've", "if", "in", "into", "is", "it", "it's",
-                 "its", "itself", "let's", "me", "more", "most", "my", "myself", "nor", "of", "on", "once", "only",
-                 "or", "other", "ought", "our", "ours", "ourselves", "out", "over", "own", "same", "she", "she'd",
-                 "she'll", "she's", "should", "so", "some", "such", "than", "that", "that's", "the", "their", "theirs",
-                 "them", "themselves", "then", "there", "there's", "these", "they", "they'd", "they'll", "they're",
-                 "they've", "this", "those", "through", "to", "too", "under", "until", "up", "very", "was", "we",
-                 "we'd", "we'll", "we're", "we've", "were", "what", "what's", "when", "when's", "where", "where's",
-                 "which", "while", "who", "who's", "whom", "why", "why's", "with", "would", "you", "you'd", "you'll",
-                 "you're", "you've", "your", "yours", "yourself", "yourselves"]
 
-    # Sentence converted to lowercase-only
-    sentence = sentence.lower()
+def seasonal_pattern(season_time):
+    """An arbitrary pattern"""
+    return np.where(season_time < 0.1,
+                    np.cos(season_time * 6 * np.pi),
+                    2 / np.exp(9 * season_time))
 
-    words = sentence.split()
-    no_words = [w for w in words if w not in stopwords]
-    sentence = " ".join(no_words)
 
-    return sentence
+def seasonality(time, period, amplitude=1, phase=0):
+    """Repeats the same pattern at each period"""
+    season_time = ((time + phase) % period) / period
+    return amplitude * seasonal_pattern(season_time)
 
 
-def parse_data_from_file(filename):
-    """
-    Extracts sentences and labels from a CSV file
+def noise(time, noise_level=1, seed=None):
+    rnd = np.random.RandomState(seed)
+    return rnd.randn(len(time)) * noise_level
 
-    Args:
-        filename (string): path to the CSV file
 
-    Returns:
-        sentences, labels (list of string, list of string): tuple containing lists of sentences and labels
-    """
-    sentences = []
-    labels = []
-    with open(filename, 'r') as csvfile:
-        reader = csv.reader(csvfile, delimiter=',')
-        next(reader)
-        for row in reader:
-            labels.append(row[0])
-            sentence = row[1]
-            sentence = remove_stopwords(sentence)
-            sentences.append(sentence)
+def generate_time_series():
+    # The time dimension or the x-coordinate of the time series
+    time = np.arange(4 * 365 + 1, dtype="float32")
 
-    return sentences, labels
+    # Initial series is just a straight line with a y-intercept
+    y_intercept = 10
+    slope = 0.005
+    series = trend(time, slope) + y_intercept
 
+    # Adding seasonality
+    amplitude = 50
+    series += seasonality(time, period=365, amplitude=amplitude)
 
-sentences, labels = parse_data_from_file("./bbc-text.csv")
+    # Adding some noise
+    noise_level = 3
+    series += noise(time, noise_level, seed=51)
 
-print(f"There are {len(sentences)} sentences in the dataset.\n")
-print(f"First sentence has {len(sentences[0].split())} words (after removing stopwords).\n")
-print(f"There are {len(labels)} labels in the dataset.\n")
-print(f"The first 5 labels are {labels[:5]}")
+    return time, series
 
 
-def train_val_split(sentences, labels, training_split):
-    """
-    Splits the dataset into training and validation sets
+# Save all "global" variables within the G class (G stands for global)
+@dataclass
+class G:
+    TIME, SERIES = generate_time_series()
+    SPLIT_TIME = 1100
+    WINDOW_SIZE = 20
+    BATCH_SIZE = 32
+    SHUFFLE_BUFFER_SIZE = 1000
 
-    Args:
-        sentences (list of string): lower-cased sentences without stopwords
-        labels (list of string): list of labels
-        training split (float): proportion of the dataset to convert to include in the train set
 
-    Returns:
-        train_sentences, validation_sentences, train_labels, validation_labels - lists containing the data splits
-    """
+# Plot the generated series
+plt.figure(figsize=(10, 6))
+plot_series(G.TIME, G.SERIES)
+plt.show()
 
-    # Compute the number of sentences that will be used for training (should be an integer)
-    train_size = int(len(labels) * training_split)
 
-    # Split the sentences and labels into train/validation splits
-    train_sentences = sentences[:train_size]  # Note that sentences=labels, so
-    train_labels = labels[:train_size]  # both sentences and labels work here.
+def train_val_split(time, series, time_step=G.SPLIT_TIME):
+    time_train = time[:time_step]
+    series_train = series[:time_step]
+    time_valid = time[time_step:]
+    series_valid = series[time_step:]
 
-    validation_sentences = sentences[train_size:]
-    validation_labels = labels[train_size:]
+    return time_train, series_train, time_valid, series_valid
 
-    return train_sentences, validation_sentences, train_labels, validation_labels
 
+# Split the dataset
+time_train, series_train, time_valid, series_valid = train_val_split(G.TIME, G.SERIES)
 
-# Test the function
-train_sentences, val_sentences, train_labels, val_labels = train_val_split(sentences, labels, TRAINING_SPLIT)
 
-print(f"There are {len(train_sentences)} sentences for training.\n")
-print(f"There are {len(train_labels)} labels for training.\n")
-print(f"There are {len(val_sentences)} sentences for validation.\n")
-print(f"There are {len(val_labels)} labels for validation.")
+def windowed_dataset(series, window_size=G.WINDOW_SIZE, batch_size=G.BATCH_SIZE, shuffle_buffer=G.SHUFFLE_BUFFER_SIZE):
 
+    # Create dataset from the series
+    dataset = tf.data.Dataset.from_tensor_slices(series)
 
-def fit_tokenizer(train_sentences, num_words, oov_token):
-    """
-    Instantiates the Tokenizer class on the training sentences
+    # Slice the dataset into the appropriate windows
+    dataset = dataset.window(window_size + 1, shift=1, drop_remainder=True)
 
-    Args:
-        train_sentences (list of string): lower-cased sentences without stopwords to be used for training
-        num_words (int) - number of words to keep when tokenizing
-        oov_token (string) - symbol for the out-of-vocabulary token
+    # Flatten the dataset
+    dataset = dataset.flat_map(lambda window: window.batch(window_size + 1))
 
-    Returns:
-        tokenizer (object): an instance of the Tokenizer class containing the word-index dictionary
-    """
+    # Split it into the features and labels
+    dataset = dataset.map(lambda window: (window[:-1], window[-1]))
 
-    # Instantiate the Tokenizer class, passing in the correct values for num_words and oov_token
-    tokenizer = Tokenizer(num_words=num_words, oov_token=oov_token)
+    # Shuffle it
+    dataset = dataset.shuffle(buffer_size=shuffle_buffer)
 
-    # Fit the tokenizer to the training sentences
-    tokenizer.fit_on_texts(train_sentences)
+    # Batch it
+    dataset = dataset.batch(batch_size).prefetch(1)
 
-    return tokenizer
+    return dataset
 
 
-# Test the function
-tokenizer = fit_tokenizer(train_sentences, NUM_WORDS, OOV_TOKEN)
-word_index = tokenizer.word_index
+# Test your function with windows size of 1 and no shuffling
+test_dataset = windowed_dataset(series_train, window_size=1, batch_size=5, shuffle_buffer=1)
 
-print(f"Vocabulary contains {len(word_index)} words\n")
-print("<OOV> token included in vocabulary" if "<OOV>" in word_index else "<OOV> token NOT included in vocabulary")
+# Get the first batch of the test dataset
+batch_of_features, batch_of_labels = next((iter(test_dataset)))
 
+print(f"batch_of_features has type: {type(batch_of_features)}\n")
+print(f"batch_of_labels has type: {type(batch_of_labels)}\n")
+print(f"batch_of_features has shape: {batch_of_features.shape}\n")
+print(f"batch_of_labels has shape: {batch_of_labels.shape}\n")
+print(
+    f"batch_of_features is equal to first five elements in the series: {np.allclose(batch_of_features.numpy().flatten(), series_train[:5])}\n")
+print(f"batch_of_labels is equal to first five labels: {np.allclose(batch_of_labels.numpy(), series_train[1:6])}")
 
-def seq_and_pad(sentences, tokenizer, padding, maxlen):
-    """
-    Generates an array of token sequences and pads them to the same length
 
-    Args:
-        sentences (list of string): list of sentences to tokenize and pad
-        tokenizer (object): Tokenizer instance containing the word-index dictionary
-        padding (string): type of padding to use
-        maxlen (int): maximum length of the token sequence
+def create_model(window_size=G.WINDOW_SIZE):
 
-    Returns:
-        padded_sequences (array of int): tokenized sentences padded to the same length
-    """
-
-    # Convert sentences to sequences
-    sequences = tokenizer.texts_to_sequences(sentences)
-
-    # Pad the sequences using the correct padding and maxlen
-    padded_sequences = pad_sequences(sequences, maxlen=maxlen, padding=padding)
-
-    return padded_sequences
-
-
-# Test the function
-train_padded_seq = seq_and_pad(train_sentences, tokenizer, PADDING, MAXLEN)
-val_padded_seq = seq_and_pad(val_sentences, tokenizer, PADDING, MAXLEN)
-
-print(f"Padded training sequences have shape: {train_padded_seq.shape}\n")
-print(f"Padded validation sequences have shape: {val_padded_seq.shape}")
-
-
-def tokenize_labels(all_labels, split_labels):
-    """
-    Tokenizes the labels
-
-    Args:
-        all_labels (list of string): labels to generate the word-index from
-        split_labels (list of string): labels to tokenize
-
-    Returns:
-        label_seq_np (array of int): tokenized labels
-    """
-
-    # Instantiate the Tokenizer (no additional arguments needed)
-    label_tokenizer = Tokenizer(num_words=len(all_labels))
-
-    # Fit the tokenizer on all the labels
-    label_tokenizer.fit_on_texts(all_labels)
-
-    # Convert labels to sequences
-    label_seq = label_tokenizer.texts_to_sequences(split_labels)
-
-    # Convert sequences to a numpy array. Don't forget to substact 1 from every entry in the array!
-    label_seq_np = np.array(label_seq) - 1
-
-    return label_seq_np
-
-
-# Test the function
-train_label_seq = tokenize_labels(labels, train_labels)
-val_label_seq = tokenize_labels(labels, val_labels)
-
-print(f"First 5 labels of the training set should look like this:\n{train_label_seq[:5]}\n")
-print(f"First 5 labels of the validation set should look like this:\n{val_label_seq[:5]}\n")
-print(f"Tokenized labels of the training set have shape: {train_label_seq.shape}\n")
-print(f"Tokenized labels of the validation set have shape: {val_label_seq.shape}\n")
-
-
-def create_model(num_words, embedding_dim, maxlen):
-    """
-    Creates a text classifier model
-
-    Args:
-        num_words (int): size of the vocabulary for the Embedding layer input
-        embedding_dim (int): dimensionality of the Embedding layer output
-        maxlen (int): length of the input sequences
-
-    Returns:
-        model (tf.keras Model): the text classifier model
-    """
-
-    tf.random.set_seed(123)
-
-    model = tf.keras.Sequential([
-        tf.keras.layers.Embedding(num_words, embedding_dim, input_length=maxlen),
-        tf.keras.layers.GlobalAveragePooling1D(),
-        tf.keras.layers.Dense(50, activation='relu'),
-        tf.keras.layers.Dense(5, activation='softmax'),
+    model = tf.keras.models.Sequential([
+        tf.keras.layers.Dense(10, activation='relu', input_shape=[window_size]),
+        tf.keras.layers.Dense(10, activation='relu'),
+        tf.keras.layers.Dense(1)
     ])
 
-    model.compile(loss='sparse_categorical_crossentropy',
-                  optimizer='rmsprop',
-                  metrics=['accuracy'])
+    model.compile(loss="mse",
+                  optimizer="rmsprop")
 
     return model
 
 
-model = create_model(NUM_WORDS, EMBEDDING_DIM, MAXLEN)
+# Apply the processing to the whole training series
+dataset = windowed_dataset(series_train)
 
-history = model.fit(train_padded_seq, train_label_seq, epochs=30, validation_data=(val_padded_seq, val_label_seq))
+# Save an instance of the model
+model = create_model()
 
-
-def plot_graphs(history, metric):
-    plt.plot(history.history[metric])
-    plt.plot(history.history[f'val_{metric}'])
-    plt.xlabel("Epochs")
-    plt.ylabel(metric)
-    plt.legend([metric, f'val_{metric}'])
-    plt.show()
+# Train it
+model.fit(dataset, epochs=100)
 
 
-plot_graphs(history, "accuracy")
-plot_graphs(history, "loss")
+def compute_metrics(true_series, forecast):
+    mse = tf.keras.metrics.mean_squared_error(true_series, forecast).numpy()
+    mae = tf.keras.metrics.mean_absolute_error(true_series, forecast).numpy()
 
-# Reverse word index
-reverse_word_index = dict([(value, key) for (key, value) in word_index.items()])
+    return mse, mae
 
-# Save the embedding layer
-e = model.layers[0]
 
-# Save the weights of the embedding layer
-weights = e.get_weights()[0]
-print(f"Weights of embedding layer have shape: {weights.shape}")
+def generate_forecast(series=G.SERIES, split_time=G.SPLIT_TIME, window_size=G.WINDOW_SIZE):
+    forecast = []
+    for time in range(len(series) - window_size):
+        forecast.append(model.predict(series[time:time + window_size][np.newaxis]))
+
+    forecast = forecast[split_time - window_size:]
+    results = np.array(forecast)[:, 0, 0]
+    return results
+
+
+# Save the forecast
+dnn_forecast = generate_forecast()
+
+# Plot it
+plt.figure(figsize=(10, 6))
+plot_series(time_valid, series_valid)
+plot_series(time_valid, dnn_forecast)
+
+mse, mae = compute_metrics(series_valid, dnn_forecast)
+
+print(f"mse: {mse:.2f}, mae: {mae:.2f} for forecast")
+
+# Save your model in HDF5 format
+model.save('my_model.h5')
