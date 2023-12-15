@@ -29,12 +29,11 @@ def parse_data_from_file(filename):
     with open(filename, 'r', errors='ignore') as csvfile:
         reader = csv.reader(csvfile, delimiter=',')
         for row in reader:
-            if row[0] == 0:
+            if row[0] == "0":
                 labels.append(int(0))
             else:
                 labels.append(int(1))
             sentences.append(row[5])
-
     return sentences, labels
 
 
