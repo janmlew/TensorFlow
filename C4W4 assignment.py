@@ -82,12 +82,12 @@ train_set = windowed_dataset(series_train, window_size=G.WINDOW_SIZE, batch_size
 
 def create_uncompiled_model():
     model = tf.keras.models.Sequential([
-        tf.keras.layers.Conv1D(filters=50, kernel_size=5, batch_size=250, strides=1, padding="causal",
+        tf.keras.layers.Conv1D(filters=50, kernel_size=5, strides=1, padding="causal",
                                activation="relu", input_shape=[None, 1]),
         tf.keras.layers.LSTM(50, return_sequences=True),
         tf.keras.layers.LSTM(50),
         tf.keras.layers.Dense(25, activation="relu"),
-        tf.keras.layers.Dense(5, activation="relu"),
+        tf.keras.layers.Dense(10, activation="relu"),
         tf.keras.layers.Dense(1)
     ])
     return model
@@ -133,7 +133,7 @@ def create_model():
     model = create_uncompiled_model()
 
     model.compile(loss=tf.keras.losses.Huber(),
-                  optimizer=tf.keras.optimizers.SGD(momentum=0.9),
+                  optimizer=tf.keras.optimizers.SGD(learning_rate=0.0013, momentum=0.9),
                   metrics=["mae"])
 
     return model
