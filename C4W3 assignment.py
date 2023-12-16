@@ -98,7 +98,7 @@ dataset = windowed_dataset(series_train)
 
 def create_uncompiled_model():
     model = tf.keras.models.Sequential([
-        tf.keras.layers.Lambda(lambda x: tf.expand_dims(x, axis=-1), input_shape=[20]),
+        tf.keras.layers.Lambda(lambda x: tf.expand_dims(x, axis=-1), input_shape=[None]),
         tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32, return_sequences=True)),
         tf.keras.layers.Bidirectional(tf.keras.layers.LSTM(32)),
         tf.keras.layers.Dense(1),
